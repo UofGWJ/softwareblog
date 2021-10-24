@@ -1,25 +1,29 @@
 package com.swareblog.softwareblog.dto;
 
 public class GithubUser {
-    private String name;
+    private String login;
     private Long id;
-    private String bio;
+    private String avatar_url;
+    private String html_url;
+    private String followers_url;
 
     @Override
     public String toString() {
         return "GithubUser{" +
-                "name='" + name + '\'' +
+                "login='" + login + '\'' +
                 ", id=" + id +
-                ", bio='" + bio + '\'' +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", html_url='" + html_url + '\'' +
+                ", followers_url='" + followers_url + '\'' +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public Long getId() {
@@ -30,11 +34,27 @@ public class GithubUser {
         this.id = id;
     }
 
-    public String getBio() {
-        return bio;
+    public String getAvatar_url() {
+        return avatar_url;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getHtml_url() {
+        return html_url;
+    }
+
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
+    }
+
+    public String getFollowers_url() {
+        return followers_url;
+    }
+
+    public void setFollowers_url(String followers_url) {
+        this.followers_url = followers_url;
     }
 }
