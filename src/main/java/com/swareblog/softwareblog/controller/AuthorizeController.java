@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AuthorizeController {
 
@@ -29,7 +31,8 @@ public class AuthorizeController {
 //    @GetMapping("/callback")
     @RequestMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
-                           @RequestParam(name="state") String state, Model model
+                           @RequestParam(name="state") String state, Model model,
+                           HttpServletRequest request
                            ){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setClient_id(client_id);
@@ -39,9 +42,15 @@ public class AuthorizeController {
         accessTokenDto.setState(state);
         String accessToken = gitHubProvider.getAccessToken(accessTokenDto);
         GithubUser getuser = gitHubProvider.getuser(accessToken);
-        System.out.println(getuser.toString());
-        model.addAttribute("username",getuser.getLogin());
-
-        return "index";
+//        System.out.println(getuser.toString());
+//        model.addAttribute("username",getuser.getLogin());
+        if(getuser != null){
+            // login success
+            request.getSession().setAttribute("user", getuser);
+            return "redirect:/";
+        } else{
+            // login fail
+            return "redirect:/";
+        }
     }
 }
