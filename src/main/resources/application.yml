@@ -5,3 +5,5 @@ github:
   client_id: d32754e05783c716a028
   client_secret: 860fe7f776640cfc3f932a5bf58f3e50bc2ec142
   redirect_url: http://localhost:8080/callback
+
+per_page: 20
