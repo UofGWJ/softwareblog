@@ -1,8 +1,7 @@
 package com.swareblog.softwareblog.controller;
 
-import com.swareblog.softwareblog.dto.Issues.GithubIssueDto;
-import com.swareblog.softwareblog.dto.Issues.Page;
-import com.swareblog.softwareblog.dto.Issues.UrlsPages;
+import com.swareblog.softwareblog.dto.issues.Page;
+import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import com.swareblog.softwareblog.provider.GithubCommonProvider;
 import com.swareblog.softwareblog.provider.GithubRepositoriesProvider;
@@ -47,7 +46,6 @@ public class FindRepositoriesController {
         int totalPage = Page.getPage();
         model.addAttribute("reponsitories", reponsitories);
         model.addAttribute("totalPage", totalPage);
-        q="";
         model.addAttribute("q", q);
         model.addAttribute("language", language);
         model.addAttribute("sort", sort);

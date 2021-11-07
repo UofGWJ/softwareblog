@@ -1,4 +1,4 @@
-package com.swareblog.softwareblog.dto.Issues;
+package com.swareblog.softwareblog.dto.issues;
 
 public class Page{
     private static int page;

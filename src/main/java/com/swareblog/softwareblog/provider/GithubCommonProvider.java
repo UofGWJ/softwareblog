@@ -1,8 +1,7 @@
 package com.swareblog.softwareblog.provider;
 
 import com.alibaba.fastjson.JSONObject;
-import com.swareblog.softwareblog.dto.Issues.UrlsPages;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -60,5 +59,38 @@ public class GithubCommonProvider {
         return urlPages;
     }
 
+
+    public ArrayList<UrlsPages> getUrlList1(String curl, String q, int page, int totalPage) {
+        ArrayList<UrlsPages> urlPages = new ArrayList<>();
+        if (totalPage > 10) {  // 如果大于10页的时候 做复杂的分页处理
+            if(page<5){
+                for(int i =1;i<11;i++){
+//                   System.out.println(i);
+                    UrlsPages u = new UrlsPages("/"+curl+"?q="+q+"&page="+i,""+i);
+                    urlPages.add(u);
+                }
+            }
+            else if(totalPage-page<=6){
+                for(int i=totalPage-10;i<=totalPage;i++){
+                    UrlsPages u = new UrlsPages("/"+curl+"?q="+q+"&page="+i,""+i);
+                    urlPages.add(u);
+                }
+            }
+            else{
+                for(int i=page-4;i<=page+6;i++){
+                    UrlsPages u = new UrlsPages("/"+curl+"?q="+q+"&page="+i,""+i);
+                    urlPages.add(u);
+                }
+            }
+        }
+        else{
+            for(int i = 1;i<totalPage+1;i++){
+                UrlsPages u = new UrlsPages("/"+curl+"?q="+q+"&page="+i,""+i);
+                urlPages.add(u);
+            }
+        }
+        System.out.println("size:"+urlPages.size());
+        return urlPages;
+    }
 
 }

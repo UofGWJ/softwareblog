@@ -1,12 +1,11 @@
 package com.swareblog.softwareblog.controller;
 
-import com.swareblog.softwareblog.dto.Issues.GithubIssueDto;
-import com.swareblog.softwareblog.dto.Issues.Page;
-import com.swareblog.softwareblog.dto.Issues.UrlsPages;
+import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
+import com.swareblog.softwareblog.dto.issues.Page;
+import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.provider.GithubCommonProvider;
 import com.swareblog.softwareblog.provider.GithubIssuesProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

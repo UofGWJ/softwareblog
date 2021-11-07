@@ -1,4 +1,4 @@
-package com.swareblog.softwareblog.dto.Issues;
+package com.swareblog.softwareblog.dto.issues;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -90,7 +90,9 @@ public class GithubIssueDto {
             Labels labels1 = JSON.parseObject(labels.get(i), Labels.class);
             if (!"good first issue".equals(labels1.getName()))
             {
+                if(!"Good first issue".equals(labels1.getName())){
                 lables_temp.add(labels1.getName());
+                }
             }
         }
         this.labels = lables_temp;

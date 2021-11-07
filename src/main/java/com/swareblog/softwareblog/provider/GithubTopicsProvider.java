@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.issues.Page;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
+import com.swareblog.softwareblog.dto.topics.GithubTopicsDto;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Component
-public class GithubRepositoriesProvider {
+public class GithubTopicsProvider {
 
     @Value("${per_page}")
     private String per_page;
@@ -24,7 +25,7 @@ public class GithubRepositoriesProvider {
     @Autowired
     private GithubCommonProvider githubCommonProvider;
 
-    public ArrayList<GithubRepositoriesDto> findReponsitories(String url) {
+    public ArrayList<GithubTopicsDto> findTopics(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -32,7 +33,6 @@ public class GithubRepositoriesProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-//            System.out.println(string);
             if(string == null){
                 return null;
             }
@@ -43,7 +43,7 @@ public class GithubRepositoriesProvider {
             Page p = new Page();
             p.setPage(githubCommonProvider.dealPageCount(jsonobj));
             JSONArray jsonArray = jsonobj.getJSONArray("items");
-            return getGithubRepositoriesDtos(jsonArray);
+            return getGithubTopicsDtos(jsonArray);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,34 +52,25 @@ public class GithubRepositoriesProvider {
     }
 
 
-    private ArrayList<GithubRepositoriesDto> getGithubRepositoriesDtos(JSONArray jsonArray) {
+    private ArrayList<GithubTopicsDto> getGithubTopicsDtos(JSONArray jsonArray) {
 
-        ArrayList<GithubRepositoriesDto> githubIssueDtos = new ArrayList<>();
+        ArrayList<GithubTopicsDto> githubTopicsDtos = new ArrayList<>();
 
         for (int i=0; i<jsonArray.size(); i++) {
-            GithubRepositoriesDto githubRepositoriesDto = JSON.parseObject(jsonArray.get(i).toString(), GithubRepositoriesDto.class);
+            GithubTopicsDto githubTopicsDto = JSON.parseObject(jsonArray.get(i).toString(), GithubTopicsDto.class);
 
-            githubIssueDtos.add(githubRepositoriesDto);
+            githubTopicsDtos.add(githubTopicsDto);
         }
-        return githubIssueDtos;
+        return githubTopicsDtos;
     }
 
 
-    public String getUrl(String q, String language, String sort,int page, String order){
-        String url = "https://api.github.com/search/repositories?q=" +q;
-//        url = url+"+state:open";
+    public String getUrl(String q,int page){
+        String url = "https://api.github.com/search/topics?q=" +q;
 
-        if(!"".equals(language)&&!"default".equals(language)){
-            url = url + "+language:"+ language;
-        }
-        if(!"".equals(sort)){
-            url = url + "&sort="+ sort;
-        }
-        if(!"".equals(order)){
-            url = url + "&order="+order;
-        }
         url = url + "&per_page="+per_page + "&page="+page;
         System.out.println(url);
         return url;
     }
+
 }

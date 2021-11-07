@@ -3,9 +3,8 @@ package com.swareblog.softwareblog.provider;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.swareblog.softwareblog.dto.Issues.GithubIssueDto;
-import com.swareblog.softwareblog.dto.Issues.Page;
-import com.swareblog.softwareblog.dto.Issues.UrlsPages;
+import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
+import com.swareblog.softwareblog.dto.issues.Page;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Component
 public class GithubIssuesProvider {
@@ -28,20 +26,9 @@ public class GithubIssuesProvider {
     public ArrayList<GithubIssueDto> findIssues(String url) {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-        HashMap<String,String> b = new HashMap<>();
-//        b["spoken_language"] =
-        String obj = "spoken_language:zh";
-//        HashMap<String,String> map = new HashMap<>();
-//        map.put("spoken_language","zh");
-        Test t = new Test();
-        t.setSpoken_language_code("zh");
-        RequestBody body = RequestBody.create(mediaType,JSON.toJSONString(t));
-        System.out.println(body);
-//        RequestBody body = null;
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("Accept", "application/vnd.github.v3+json")
-//                .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
@@ -96,14 +83,4 @@ public class GithubIssuesProvider {
     }
 
 }
-class Test{
-    public String spoken_language_code;
 
-    public String getSpoken_language_code() {
-        return spoken_language_code;
-    }
-
-    public void setSpoken_language_code(String spoken_language_code) {
-        this.spoken_language_code = spoken_language_code;
-    }
-}
