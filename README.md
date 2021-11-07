@@ -17,5 +17,9 @@ https://docs.github.com/en/rest/reference/search
 https://api.github.com/search/issues?q=+label:good-first-issue+state:open&sort=created&order=asc
 https://api.github.com/search/issues?q=java+label:%22good%20first%20issue%22+state:open&sort=created&order=asc&per_page=100&page=2
 
-# find repositories example
+### find repositories example
 https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc
+
+
+### find topic example
+

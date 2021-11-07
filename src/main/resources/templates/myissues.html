@@ -131,20 +131,24 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="page-header">
+                    <h3>Spoken Language:</h3>
+                    <div class="dropdown theme-dropdown clearfix">
+                        <select class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <option class="active"><a href="#">Action</a></option>
+                            <option><a href="#">Another action</a></option>
+                            <option><a href="#">Something else here</a></option>
+                            <option><a href="#">Separated link</a></option>
+                        </select>
+                    </div>
+                </div>
+
+
                 <input type="hidden" th:hidden="${page}" name="page">
                 <button type="submit" class="btn btn-primary btn-lg active">Search</button>
             </form>
-            <!--            <div class="page-header">-->
-            <!--                <h3>Repository:</h3>-->
-            <!--                <div class="dropdown theme-dropdown clearfix">-->
-            <!--                    <select class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-            <!--                        <option class="active"><a href="#">Action</a></option>-->
-            <!--                        <option><a href="#">Another action</a></option>-->
-            <!--                        <option><a href="#">Something else here</a></option>-->
-            <!--                        <option><a href="#">Separated link</a></option>-->
-            <!--                    </select>-->
-            <!--                </div>-->
-            <!--            </div>-->
+
 
 
         </div>
@@ -155,12 +159,12 @@
                 <div class="list-group">
                     <div th:each="issue:${issues}">
                         <a th:href="${issue.getHtml_url()}" target="_blank" class="list-group-item">
-                            <h4 class="list-group-item-heading" th:text="${issue.getTitle()}"></h4>
-                            <p class="list-group-item-text" th:text="${issue.getLabels()}"></p>
-                            <p class="list-group-item-text" th:text="${issue.getBody()}"></p>
-                            <p class="list-group-item-text" th:text="'Comments:'+${issue.getComments()}"></p>
-                            <p class="list-group-item-text" th:text="'Create Time:'+${issue.getCreated_at()}"></p>
-                            <p class="list-group-item-text" th:text="'Updated Time:'+ ${issue.getUpdated_at()}"></p>
+                            <h4 class="list-group-item-heading" style="widht:100%;height:100%;word-wrap: break-word" th:text="${issue.getTitle()}"></h4>
+                            <p class="list-group-item-text"  style="widht:100%;height:100%;word-wrap: break-word" th:text="${issue.getLabels()}"></p>
+                            <p class="list-group-item-text" style="widht:100%;height:100%;word-wrap: break-word" th:text="${issue.getBody()}"></p>
+                            <p class="list-group-item-text" style="widht:100%;height:100%;word-wrap: break-word" th:text="'Comments:'+${issue.getComments()}"></p>
+                            <p class="list-group-item-text" style="widht:100%;height:100%;word-wrap: break-word" th:text="'Create Time:'+${issue.getCreated_at()}"></p>
+                            <p class="list-group-item-text" style="widht:100%;height:100%;word-wrap: break-word" th:text="'Updated Time:'+ ${issue.getUpdated_at()}"></p>
                         </a>
                     </div>
                 </div>

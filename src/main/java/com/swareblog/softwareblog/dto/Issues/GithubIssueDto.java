@@ -86,9 +86,12 @@ public class GithubIssueDto {
 
     public void setLabels(ArrayList<String> labels) {
         ArrayList<String> lables_temp = new ArrayList<>();
-        for(int i =0 ;i<labels.size();i++){
+        for (int i = 0; i < labels.size(); i++) {
             Labels labels1 = JSON.parseObject(labels.get(i), Labels.class);
-            lables_temp.add(labels1.getName().toString());
+            if (!"good first issue".equals(labels1.getName()))
+            {
+                lables_temp.add(labels1.getName());
+            }
         }
         this.labels = lables_temp;
     }
