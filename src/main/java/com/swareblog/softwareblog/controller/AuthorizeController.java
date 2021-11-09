@@ -47,6 +47,7 @@ public class AuthorizeController {
         if(getuser != null){
             // login success
             request.getSession().setAttribute("user", getuser);
+            request.getSession().setAttribute("accessToken", accessToken);
             return "redirect:/";
         } else{
             // login fail

@@ -37,6 +37,7 @@ public class GithubProvider {
                 .url("https://api.github.com/user")  //  这个是获取到项目用户的信息
                 .addHeader("Authorization", "token "+accessToken)
                 .build();
+
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
 //            System.out.println(string);

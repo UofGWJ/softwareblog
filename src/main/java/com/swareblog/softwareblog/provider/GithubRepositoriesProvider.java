@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.issues.Page;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
+import com.swareblog.softwareblog.dto.repositories.PageRepositories;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,12 +25,9 @@ public class GithubRepositoriesProvider {
     @Autowired
     private GithubCommonProvider githubCommonProvider;
 
-    public ArrayList<GithubRepositoriesDto> findReponsitories(String url) {
+    public ArrayList<GithubRepositoriesDto> findReponsitories(String url,String accessToken) {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Accept", "application/vnd.github.v3+json")
-                .build();
+        Request request = githubCommonProvider.getRequest(url,accessToken);
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
 //            System.out.println(string);
@@ -40,10 +38,10 @@ public class GithubRepositoriesProvider {
             if(jsonobj.get("total_count")==null){
                 return null;
             }
-            Page p = new Page();
+            PageRepositories p = new PageRepositories();
             p.setPage(githubCommonProvider.dealPageCount(jsonobj));
             JSONArray jsonArray = jsonobj.getJSONArray("items");
-            return getGithubRepositoriesDtos(jsonArray);
+            return githubCommonProvider.getGithubRepositoriesDtos(jsonArray);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,17 +50,6 @@ public class GithubRepositoriesProvider {
     }
 
 
-    private ArrayList<GithubRepositoriesDto> getGithubRepositoriesDtos(JSONArray jsonArray) {
-
-        ArrayList<GithubRepositoriesDto> githubIssueDtos = new ArrayList<>();
-
-        for (int i=0; i<jsonArray.size(); i++) {
-            GithubRepositoriesDto githubRepositoriesDto = JSON.parseObject(jsonArray.get(i).toString(), GithubRepositoriesDto.class);
-
-            githubIssueDtos.add(githubRepositoriesDto);
-        }
-        return githubIssueDtos;
-    }
 
 
     public String getUrl(String q, String language, String sort,int page, String order){

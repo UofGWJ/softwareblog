@@ -24,8 +24,18 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+    <!-- Bootstrap theme -->
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"
             charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js" type="text/javascript"
+            charset="utf8"></script>
+
 
 </head>
 
@@ -33,7 +43,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">JESB</span>
             </button>
             <a class="navbar-brand" href="/">JESB</a>
@@ -42,7 +53,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span class="caret" ></span></a>
+                       aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Message Center</a></li>
                         <li><a href="#">Information</a></li>
@@ -68,35 +80,17 @@
 </nav>
 
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1  th:if="${session.user != null}"  th:text="'Hello, '+ ${session.user.getLogin()}+'!'"></h1>
-        <p>You can get more queries when you log in！！！</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-    </div>
-</div>
-
 <div class="container">
     <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Find a new Issues</h2>
-            <p>The best way to learn a language and a technology is not to start from zero, but to find issues that interest you and gradually imitate learning. Here we have collected a lot of issues that are suitable for programmers who are just getting started. Come and find your own appropriate issue. </p>
-            <p><a class="btn btn-default" href="/myissues?q=&language=&sort=&page=&order=" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Find a new Responsity</h2>
-            <p> Here is a collection of responses in the industry that are suitable for just beginning to learn programming, and there are all kinds of responses you want. Come and search for the Response you are interested in</p>
-            <p><a class="btn btn-default" href="/myreponsitories?q=&language=&sort=&page=&order=" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Find a new Topics</h2>
-            <p>When you start to learn programming, you must first find a topic that interests you. There are like-minded friends in this, and you can share your experience and learning journey with each other. Come find a topic you like</p>
-            <p><a class="btn btn-default" href="/mytopics?q=&page=" role="button">View details &raquo;</a></p>
-        </div>
-    </div>
 
+    <div class="container">
+        <div class="middle-box text-center animated fadeInDown" >
+            <h1>404</h1>
+            <h3 > 页面未能够找到！! !</h3>
+            <div >
+                抱歉，页面好像去火星啦！
+            </div>
+        </div>
     <hr>
 
     <footer>
@@ -108,9 +102,12 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"
-        charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"-->
+<!--        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
 <script src="js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

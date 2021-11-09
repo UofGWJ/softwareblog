@@ -14,6 +14,15 @@ public class GithubRepositoriesDto {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+0")
     private Date updated_at;
     private String watchers;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getId() {
         return id;
@@ -81,6 +90,7 @@ public class GithubRepositoriesDto {
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", watchers='" + watchers + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

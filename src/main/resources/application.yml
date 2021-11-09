@@ -7,3 +7,4 @@ github:
   redirect_url: http://localhost:8080/callback
 
 per_page: 20
+per_page_detail: 10

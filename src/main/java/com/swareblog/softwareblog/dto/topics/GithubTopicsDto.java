@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class GithubTopicsDto {
-    public String name;
-    public String display_name;
-    public String short_description;
-    public String description;
+    private String name;
+    private String display_name;
+    private String short_description;
+    private String description;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+0")
     private Date created_at;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+0")
