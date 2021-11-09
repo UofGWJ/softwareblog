@@ -3,13 +3,17 @@ package com.swareblog.softwareblog.provider;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.swareblog.softwareblog.dto.GithubOwner;
+import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Component
@@ -71,40 +75,6 @@ public class GithubCommonProvider {
 
 
     // 这个是repositoriesDetailProvider
-    public ArrayList<UrlsPages> getUrlListDetail(String curl, String url, int page, int totalPage) {
-        ArrayList<UrlsPages> urlPages = new ArrayList<>();
-        if (totalPage > 10) {  // 如果大于10页的时候 做复杂的分页处理
-            if(page<5){
-                for(int i =1;i<11;i++){
-//                   System.out.println(i);
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
-                    urlPages.add(u);
-                }
-            }
-            else if(totalPage-page<=6){
-                for(int i=totalPage-10;i<=totalPage;i++){
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
-                    urlPages.add(u);
-                }
-            }
-            else{
-                for(int i=page-4;i<=page+6;i++){
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
-                    urlPages.add(u);
-                }
-            }
-        }
-        else{
-            for(int i = 1;i<totalPage+1;i++){
-                UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
-                urlPages.add(u);
-            }
-        }
-        System.out.println("size:"+urlPages.size());
-        return urlPages;
-    }
-
-    // 这个是repositoriesDetailProvider
     public int dealPageCountDetail(JSONObject jsonobj) {
         int total_page = 0;
         int total_count =  Integer.parseInt(jsonobj.get("total_count").toString());
@@ -149,7 +119,7 @@ public class GithubCommonProvider {
                 urlPages.add(u);
             }
         }
-        System.out.println("size:"+urlPages.size());
+//        System.out.println("size:"+urlPages.size());
         return urlPages;
     }
 
@@ -189,4 +159,19 @@ public class GithubCommonProvider {
         }
 
     }
+
+
+
+    public ArrayList<GithubIssueDto> getGithubIssueDtos(JSONArray jsonArray) {
+
+        ArrayList<GithubIssueDto> githubIssueDtos = new ArrayList<>();
+
+        for (int i=0; i<jsonArray.size(); i++) {
+            GithubIssueDto githubIssueDto = JSON.parseObject(jsonArray.get(i).toString(), GithubIssueDto.class);
+
+            githubIssueDtos.add(githubIssueDto);
+        }
+        return githubIssueDtos;
+    }
+
 }

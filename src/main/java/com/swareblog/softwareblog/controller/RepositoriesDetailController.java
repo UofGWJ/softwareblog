@@ -2,7 +2,6 @@ package com.swareblog.softwareblog.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.GithubOwner;
-import com.swareblog.softwareblog.dto.issues.Page;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import com.swareblog.softwareblog.dto.repositories.PageRepositoriesDetail;
@@ -65,8 +64,9 @@ public class RepositoriesDetailController {
         model.addAttribute("owner",githubOwner);
         model.addAttribute("repositoriesDetail",repositoriesDetailDto);
         int page = Integer.parseInt(page1);
-        String url1 = "https://api.github.com/search/repositories?q="+repositoriesDetailDto.getName()+"+language:"+repositoriesDetailDto.getLanguage()+"+in:readme,description+watchers>2&sort=stars&order=desc&per_page="+per_page_detail+"&page="+page;
-        System.out.println(url1);
+
+        String url1 = "https://api.github.com/search/repositories?q="+repositoriesDetailDto.getName()+"+language:"+repositoriesDetailDto.getLanguage()+"+in:readme,description+watchers>2+stars>1+forks>1+commits>10&sort=stars&order=desc&per_page="+per_page_detail+"&page="+page;
+//        System.out.println(url1);
 
         ArrayList<GithubRepositoriesDto> reponsitories = repositoriesDetailProvider.findReponsitories(url1,accessToken);
         model.addAttribute("reponsitories", reponsitories);
@@ -84,8 +84,8 @@ public class RepositoriesDetailController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-        System.out.println("totlaPage"+totalPage);
-        ArrayList<UrlsPages> returnUrlsPages = githubCommonProvider.getUrlListDetail("repositoriesdetail",url,  page, totalPage);
+//        System.out.println("totlaPage"+totalPage);
+        ArrayList<UrlsPages> returnUrlsPages = repositoriesDetailProvider.getUrlListDetail("repositoriesdetail",url,  page, totalPage);
 
         model.addAttribute("urlsPages",returnUrlsPages);
 

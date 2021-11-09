@@ -1,6 +1,6 @@
 package com.swareblog.softwareblog.dto.issues;
 
-public class Page{
+public class PageIssues {
     private static int page;
 
     public static int getPage() {

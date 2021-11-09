@@ -1,11 +1,10 @@
 package com.swareblog.softwareblog.controller;
 
-import com.swareblog.softwareblog.dto.issues.Page;
+import com.swareblog.softwareblog.dto.issues.PageIssues;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
-import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import com.swareblog.softwareblog.dto.topics.GithubTopicsDto;
+import com.swareblog.softwareblog.dto.topics.PageTopics;
 import com.swareblog.softwareblog.provider.GithubCommonProvider;
-import com.swareblog.softwareblog.provider.GithubRepositoriesProvider;
 import com.swareblog.softwareblog.provider.GithubTopicsProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +37,7 @@ public class FindTopicController {
         int page = Integer.parseInt(page1);
         String url = githubTopicsProvider.getUrl(q,  page);
         ArrayList<GithubTopicsDto> topics = githubTopicsProvider.findTopics(url);
-        int totalPage = Page.getPage();
+        int totalPage = PageTopics.getPage();
         model.addAttribute("topics", topics);
         model.addAttribute("totalPage", totalPage);
 
@@ -55,7 +54,7 @@ public class FindTopicController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-        System.out.println("totlaPage"+totalPage);
+//        System.out.println("totlaPage"+totalPage);
         ArrayList<UrlsPages> returnUrlsPages = githubCommonProvider.getUrlList1("mytopics",q, page, totalPage);
 
         model.addAttribute("urlsPages",returnUrlsPages);

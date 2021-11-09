@@ -3,7 +3,6 @@ package com.swareblog.softwareblog.provider;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.swareblog.softwareblog.dto.issues.Page;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import com.swareblog.softwareblog.dto.repositories.PageRepositories;
 import okhttp3.OkHttpClient;
@@ -66,7 +65,7 @@ public class GithubRepositoriesProvider {
             url = url + "&order="+order;
         }
         url = url + "&per_page="+per_page + "&page="+page;
-        System.out.println(url);
+//        System.out.println(url);
         return url;
     }
 }

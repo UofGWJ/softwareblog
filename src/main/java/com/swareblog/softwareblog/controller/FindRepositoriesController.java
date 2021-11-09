@@ -1,6 +1,5 @@
 package com.swareblog.softwareblog.controller;
 
-import com.swareblog.softwareblog.dto.issues.Page;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import com.swareblog.softwareblog.dto.repositories.PageRepositories;
@@ -31,6 +30,10 @@ public class FindRepositoriesController {
                          HttpServletRequest request,
                          Model model) {
 
+        // 因为这里后面可能判断是否有language 如果没有language 也没有q就会包错 不和issues一样 lable是必须的
+        if("".equals(q)){
+            q = "first";
+        }
         if ("".equals(sort)|| "default".equals(sort)) {
             sort = "best match";
         }
@@ -40,9 +43,7 @@ public class FindRepositoriesController {
         if ("".equals(order)) {
             order = "desc";
         }
-        if("".equals(q)){
-            q = "first";
-        }
+
         int page = Integer.parseInt(page1);
 
         String accessToken = null;
@@ -76,7 +77,7 @@ public class FindRepositoriesController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-        System.out.println("totlaPage"+totalPage);
+//        System.out.println("totlaPage"+totalPage);
         ArrayList<UrlsPages> returnUrlsPages = githubCommonProvider.getUrlList("myreponsitories",q, language, sort, order, page, totalPage);
 
         model.addAttribute("urlsPages",returnUrlsPages);

@@ -3,9 +3,9 @@ package com.swareblog.softwareblog.provider;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.swareblog.softwareblog.dto.issues.Page;
-import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
+import com.swareblog.softwareblog.dto.issues.PageIssues;
 import com.swareblog.softwareblog.dto.topics.GithubTopicsDto;
+import com.swareblog.softwareblog.dto.topics.PageTopics;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -40,7 +40,7 @@ public class GithubTopicsProvider {
             if(jsonobj.get("total_count")==null){
                 return null;
             }
-            Page p = new Page();
+            PageTopics p = new PageTopics();
             p.setPage(githubCommonProvider.dealPageCount(jsonobj));
             JSONArray jsonArray = jsonobj.getJSONArray("items");
             return getGithubTopicsDtos(jsonArray);
@@ -69,7 +69,7 @@ public class GithubTopicsProvider {
         String url = "https://api.github.com/search/topics?q=" +q;
 
         url = url + "&per_page="+per_page + "&page="+page;
-        System.out.println(url);
+//        System.out.println(url);
         return url;
     }
 

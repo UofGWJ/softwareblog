@@ -1,7 +1,7 @@
 package com.swareblog.softwareblog.controller;
 
 import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
-import com.swareblog.softwareblog.dto.issues.Page;
+import com.swareblog.softwareblog.dto.issues.PageIssues;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
 import com.swareblog.softwareblog.provider.GithubCommonProvider;
 import com.swareblog.softwareblog.provider.GithubIssuesProvider;
@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -28,6 +29,7 @@ public class FindIssuesController {
                          @RequestParam(name = "sort") String sort,
                          @RequestParam(name = "page") String page1,
                          @RequestParam(name = "order") String order,
+                         HttpServletRequest request,
                          Model model) {
         if ("".equals(sort)|| "default".equals(sort)) {
             sort = "best match";
@@ -41,8 +43,14 @@ public class FindIssuesController {
         int page = Integer.parseInt(page1);
         String url = githubIssues.getUrl(q, language, sort, page, order);
 
-        ArrayList<GithubIssueDto> issues = githubIssues.findIssues(url);
-        int totalPage = Page.getPage();
+        String accessToken = null;
+        Object obj = request.getSession().getAttribute("accessToken");
+        if(obj!=null){
+            accessToken = obj.toString();
+        }
+
+        ArrayList<GithubIssueDto> issues = githubIssues.findIssues(url,accessToken);
+        int totalPage = PageIssues.getPage();
         model.addAttribute("issues", issues);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("q", q);
@@ -61,7 +69,7 @@ public class FindIssuesController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-        System.out.println("totlaPage"+totalPage);
+//        System.out.println("totlaPage"+totalPage);
         ArrayList<UrlsPages> returnUrlsPages = githubCommonProvider.getUrlList("myissues",q, language, sort, order, page, totalPage);
 
         model.addAttribute("urlsPages",returnUrlsPages);

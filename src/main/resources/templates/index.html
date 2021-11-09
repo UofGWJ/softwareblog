@@ -44,9 +44,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span class="caret" ></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Message Center</a></li>
-                        <li><a href="#">Information</a></li>
-                        <li><a href="#">Layout</a></li>
+<!--                        <li><a href="#">Message Center</a></li>-->
+<!--                        <li><a href="#">Information</a></li>-->
+                        <li><a href="/layout">Layout</a></li>
                     </ul>
                 </li>
 
@@ -56,12 +56,12 @@
                 </li>
 
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>
-                <button type="submit" class="btn btn-success">Search</button>
-            </form>
+<!--            <form class="navbar-form navbar-right">-->
+<!--                <div class="form-group">-->
+<!--                    <input type="text" class="form-control" placeholder="Search...">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-success">Search</button>-->
+<!--            </form>-->
         </div>
 
     </div>
@@ -73,7 +73,7 @@
     <div class="container">
         <h1  th:if="${session.user != null}"  th:text="'Hello, '+ ${session.user.getLogin()}+'!'"></h1>
         <p>You can get more queries when you log in！！！</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+<!--        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>-->
     </div>
 </div>
 

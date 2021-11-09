@@ -56,9 +56,9 @@
                        aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span
                             class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Message Center</a></li>
-                        <li><a href="#">Information</a></li>
-                        <li><a href="#">Layout</a></li>
+<!--                        <li><a href="#">Message Center</a></li>-->
+<!--                        <li><a href="#">Information</a></li>-->
+                        <li><a href="/layout">Layout</a></li>
                     </ul>
                 </li>
 
@@ -68,12 +68,12 @@
                 </li>
 
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>
-                <button type="submit" class="btn btn-success">Search</button>
-            </form>
+<!--            <form class="navbar-form navbar-right">-->
+<!--                <div class="form-group">-->
+<!--                    <input type="text" class="form-control" placeholder="Search...">-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-success">Search</button>-->
+<!--            </form>-->
         </div>
 
     </div>
@@ -158,7 +158,7 @@
 
                 <div class="list-group">
                     <div th:each="issue:${issues}">
-                        <a th:href="${issue.getHtml_url()}" target="_blank" class="list-group-item">
+                        <a th:href="${'/issuesdetail?url='+issue.getUrl()+'&page=1'+'&labels='+issue.getLabels()+'&q='+q}" target="_blank" class="list-group-item">
                             <h4 class="list-group-item-heading" style="wight:100%;height:100%;word-wrap: break-word" th:text="${issue.getTitle()}"></h4>
                             <p class="list-group-item-text"  style="wight:100%;height:100%;word-wrap: break-word" th:text="${issue.getLabels()}"></p>
                             <p class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:text="${issue.getBody()}"></p>

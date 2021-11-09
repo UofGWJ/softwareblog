@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
-import com.swareblog.softwareblog.dto.issues.Page;
+import com.swareblog.softwareblog.dto.issues.PageIssues;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,13 +23,9 @@ public class GithubIssuesProvider {
     @Autowired
     private GithubCommonProvider githubCommonProvider;
 
-    public ArrayList<GithubIssueDto> findIssues(String url) {
+    public ArrayList<GithubIssueDto> findIssues(String url,String accessToken) {
         OkHttpClient client = new OkHttpClient();
-        MediaType mediaType = MediaType.get("application/json; charset=utf-8");
-        Request request = new Request.Builder()
-                .url(url)
-                .addHeader("Accept", "application/vnd.github.v3+json")
-                .build();
+        Request request = githubCommonProvider.getRequest(url,accessToken);
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
             if(string == null){
@@ -39,29 +35,16 @@ public class GithubIssuesProvider {
             if(jsonobj.get("total_count")==null){
                 return null;
             }
-            Page p = new Page();
+            PageIssues p = new PageIssues();
             p.setPage(githubCommonProvider.dealPageCount(jsonobj));
             JSONArray jsonArray = jsonobj.getJSONArray("items");
-            System.out.println(jsonArray);
-            return getGithubIssueDtos(jsonArray);
+//            System.out.println(jsonArray);
+            return githubCommonProvider.getGithubIssueDtos(jsonArray);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    private ArrayList<GithubIssueDto> getGithubIssueDtos(JSONArray jsonArray) {
-
-        ArrayList<GithubIssueDto> githubIssueDtos = new ArrayList<>();
-
-        for (int i=0; i<jsonArray.size(); i++) {
-            GithubIssueDto githubIssueDto = JSON.parseObject(jsonArray.get(i).toString(), GithubIssueDto.class);
-
-            githubIssueDtos.add(githubIssueDto);
-        }
-        return githubIssueDtos;
     }
 
 
@@ -78,7 +61,7 @@ public class GithubIssuesProvider {
             url = url + "&order="+order;
         }
         url = url + "&per_page="+per_page + "&page="+page;
-        System.out.println(url);
+//        System.out.println(url);
         return url;
     }
 
