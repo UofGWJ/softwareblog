@@ -92,9 +92,10 @@ public class RepositoriesDetailProvider {
         return null;
     }
 
-    public ArrayList<GithubRepositoriesDto> findReponsitories(String url,String accessToken) {
+       public ArrayList<GithubRepositoriesDto> findReponsitories(String url,String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = githubCommonProvider.getRequest(url,accessToken);
+
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
 //            System.out.println(string);

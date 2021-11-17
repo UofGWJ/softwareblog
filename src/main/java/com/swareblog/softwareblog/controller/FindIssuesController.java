@@ -17,12 +17,28 @@ import java.util.ArrayList;
 @Controller
 public class FindIssuesController {
 
+    /*
+    装配GithubIssuesProvider对象
+    * */
     @Autowired
     public GithubIssuesProvider githubIssues;
 
+    /*
+    装配公用的Provider对象，里面封装了一些公用代码
+    * */
     @Autowired
     public GithubCommonProvider githubCommonProvider;
 
+    /*
+     myissues界面展示
+     1. 如果前端未传值，设置默认值sort=best match page1=1 order=desc
+     2.按照传入属性 拼装url   return url  githubIssues
+     3. // 判断用户是否登陆  如果登陆可以获取到session中 存的accessToken
+     4. 访问url 查询Issues
+     5. if not login and the times is out to 404
+     6. 往前端传递数据addAttribute
+     7. 7. 根据url 查询推荐的issue
+    * */
     @GetMapping("/myissues")
     public String index1(@RequestParam(name = "q") String q,
                          @RequestParam(name = "language") String language,
@@ -31,6 +47,7 @@ public class FindIssuesController {
                          @RequestParam(name = "order") String order,
                          HttpServletRequest request,
                          Model model) {
+        // 1 如果前端未传值，设置默认值sort=best match page1=1 order=desc
         if ("".equals(sort)|| "default".equals(sort)) {
             sort = "best match";
         }
@@ -41,16 +58,26 @@ public class FindIssuesController {
             order = "desc";
         }
         int page = Integer.parseInt(page1);
+
+        // 按照传入属性 拼装url   return url  githubIssues
         String url = githubIssues.getUrl(q, language, sort, page, order);
 
+        // 判断用户是否登陆  如果登陆可以获取到session中 存的accessToken
         String accessToken = null;
         Object obj = request.getSession().getAttribute("accessToken");
         if(obj!=null){
             accessToken = obj.toString();
         }
 
+        //  访问url 查询Issues
         ArrayList<GithubIssueDto> issues = githubIssues.findIssues(url,accessToken);
+        // if not login and the times is out to 404
+        if (issues == null) {
+            return "404";
+        }
+
         int totalPage = PageIssues.getPage();
+        // 往前端传递数据addAttribute
         model.addAttribute("issues", issues);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("q", q);
@@ -69,7 +96,7 @@ public class FindIssuesController {
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
-//        System.out.println("totlaPage"+totalPage);
+        // 获得ArrayList<UrlsPages>  页面链接 和 页数
         ArrayList<UrlsPages> returnUrlsPages = githubCommonProvider.getUrlList("myissues",q, language, sort, order, page, totalPage);
 
         model.addAttribute("urlsPages",returnUrlsPages);

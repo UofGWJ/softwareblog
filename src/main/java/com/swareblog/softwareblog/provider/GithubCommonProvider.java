@@ -25,7 +25,14 @@ public class GithubCommonProvider {
     @Value("${per_page_detail}")
     private String per_page_detail;
 
-    // 这个是所有的dealpagecount
+    /*
+    计算总页数
+    处理页面页数 计算出一共有多少页， 因为插叙的最大条数为1000
+    所以如果条数大于1000 则总页数为1000/per_page
+    否则 用 总条数/per_page
+    return total_page
+    **/
+
     public int dealPageCount(JSONObject jsonobj) {
         int total_page = 0;
         int total_count =  Integer.parseInt(jsonobj.get("total_count").toString());
@@ -39,7 +46,7 @@ public class GithubCommonProvider {
     }
 
 
-    // 这个是repositoriesProvider
+    // 获取页面链接和页数 return ArrayList<UrlsPages>   FindIssuesController在用
     public ArrayList<UrlsPages> getUrlList(String curl, String q, String language, String sort, String order, int page, int totalPage) {
         ArrayList<UrlsPages> urlPages = new ArrayList<>();
         if (totalPage > 10) {  // 如果大于10页的时候 做复杂的分页处理
@@ -69,7 +76,6 @@ public class GithubCommonProvider {
                 urlPages.add(u);
             }
         }
-        System.out.println("size:"+urlPages.size());
         return urlPages;
     }
 
@@ -140,7 +146,7 @@ public class GithubCommonProvider {
 
 
 
-    // request action
+    // 访问url 获得request对象
     public Request getRequest(String url,String accessToken){
         if(accessToken !=null){
             Request request = new Request.Builder()
@@ -162,6 +168,7 @@ public class GithubCommonProvider {
 
 
 
+    // 解析JSONArray 返回ArrayList<GithubIssueDto>
     public ArrayList<GithubIssueDto> getGithubIssueDtos(JSONArray jsonArray) {
 
         ArrayList<GithubIssueDto> githubIssueDtos = new ArrayList<>();

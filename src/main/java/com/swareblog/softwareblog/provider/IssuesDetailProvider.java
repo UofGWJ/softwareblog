@@ -6,10 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.GithubOwner;
 import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
 import com.swareblog.softwareblog.dto.issues.PageIssuesDetail;
+import com.swareblog.softwareblog.dto.issues.StackOverFlowIssueDto;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
-import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
-import com.swareblog.softwareblog.dto.repositories.PageRepositoriesDetail;
-import com.swareblog.softwareblog.dto.repositories.RepositoriesDetailDto;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -25,6 +23,7 @@ public class IssuesDetailProvider {
     @Autowired
     private GithubCommonProvider githubCommonProvider;
 
+    // 3. 通过前端传递来的issue html_url 访问得到当前issue的JSONObject对象
     public JSONObject findissues(String url, String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = githubCommonProvider.getRequest(url,accessToken);
@@ -43,6 +42,7 @@ public class IssuesDetailProvider {
     }
 
 
+    // 查询当前issue 的详细信息 return GithubIssueDto
     public GithubIssueDto findIssuesDetail(JSONObject jsonobj, String accessToken) {
         if (jsonobj == null) {
             return null;
@@ -70,6 +70,7 @@ public class IssuesDetailProvider {
     }
 
 
+    // 根据url 查询推荐的issue return ArrayList<GithubIssueDto>
     public ArrayList<GithubIssueDto> findIsssuesDetails(String url, String accessToken) {
         OkHttpClient client = new OkHttpClient();
         Request request = githubCommonProvider.getRequest(url,accessToken);
@@ -95,6 +96,9 @@ public class IssuesDetailProvider {
         return null;
     }
 
+
+
+    // 4. 解析JSONObject 对象 得到Owner详细信息
     public GithubOwner findOwner(JSONObject jsonobj, String accessToken) {
         if(jsonobj.get("user")==null){
             return null;
@@ -118,7 +122,7 @@ public class IssuesDetailProvider {
         return null;
     }
 
-    // &labels=bug&q=
+    // 根据url 查询推荐的issue  获得ArrayList<UrlsPages>  页面链接 和 页数
     public ArrayList<UrlsPages> getUrlListDetail(String curl, String url, int page, int totalPage,String lables,String q) {
         ArrayList<UrlsPages> urlPages = new ArrayList<>();
         if (totalPage > 10) {  // 如果大于10页的时候 做复杂的分页处理
@@ -152,4 +156,33 @@ public class IssuesDetailProvider {
         return urlPages;
     }
 
+
+    // 根据url 查询推荐的StackOverFlow return ArrayList<GithubIssueDto>
+    public ArrayList<StackOverFlowIssueDto> findStackOverflowIssueDtos(String url) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = githubCommonProvider.getRequest(url,null);
+        try (Response response = client.newCall(request).execute()) {
+            String string = response.body().string();
+//            System.out.println(string);
+            if(string == null){
+                return null;
+            }
+            JSONObject jsonobj = JSON.parseObject(string);
+            JSONArray jsonArray = jsonobj.getJSONArray("items");
+            return getStackOverFlowDtos(jsonArray);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<StackOverFlowIssueDto> getStackOverFlowDtos( JSONArray jsonArray){
+        ArrayList<StackOverFlowIssueDto> stackOverFlowIssues = new ArrayList<>();
+        for (int i=0; i<jsonArray.size(); i++) {
+            StackOverFlowIssueDto stackOverFlowIssueDto = JSON.parseObject(jsonArray.get(i).toString(), StackOverFlowIssueDto.class);
+            stackOverFlowIssues.add(stackOverFlowIssueDto);
+        }
+        return stackOverFlowIssues;
+    }
 }

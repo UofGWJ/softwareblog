@@ -1,9 +1,12 @@
 server:
   port: 8080
+#  servlet:
+#    context-path: /softwareblog
 
 github:
   client_id: d32754e05783c716a028
-  client_secret: 860fe7f776640cfc3f932a5bf58f3e50bc2ec142
+  client_secret: 418a4b711aa998ee8bd9adcc76259b13bf1b0df4
+#  redirect_url: http://18.130.87.161:8080/callback
   redirect_url: http://localhost:8080/callback
 
 per_page: 20

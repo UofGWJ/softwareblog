@@ -16,8 +16,10 @@ https://docs.github.com/en/rest/reference/search
 ### find issues example
 https://api.github.com/search/issues?q=+label:good-first-issue+state:open&sort=created&order=asc
 https://api.github.com/search/issues?q=java+label:%22good%20first%20issue%22+state:open&sort=created&order=asc&per_page=100&page=2
+### find StackOverflow
+https://api.stackexchange.com/docs/advanced-search#page=1&pagesize=10&order=desc&sort=activity&q=Complete%20the%20NavBar&filter=default&site=stackoverflow&run=true
 
-
+/2.3/search/advanced?page=1&pagesize=10&order=desc&sort=activity&q=Complete the NavBar&site=stackoverflow
 
 ### find repositories example
 https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc
