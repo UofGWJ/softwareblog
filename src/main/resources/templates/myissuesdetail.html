@@ -27,9 +27,9 @@
         </div>
         <div class="col-md-6">
             <div class="well">
-                <a th:href="${issuesDetail.getHtml_url()}" class="list-group-item">
+                <a th:href="${issuesDetail.getHtml_url()}" class="list-group-item" id="issuehtml_url">
                     <div class="dropdown theme-dropdown clearfix">
-                        <h4 class="list-group-item-heading" style="wight:100%;height:100%;word-wrap: break-word" th:text="${issuesDetail.getTitle()}"></h4>
+                        <h4 class="list-group-item-heading" style="wight:100%;height:100%;word-wrap: break-word" id="issuetitle"   th:text="${issuesDetail.getTitle()}"></h4>
                         <h4 class="list-group-item-text"  style="wight:100%;height:100%;word-wrap: break-word" th:text="${issuesDetail.getLabels()}"></h4>
                         <h4 class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:utext="${issuesDetail.getBody()}"></h4>
                         <h4 class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:text="'Comments:'+${issuesDetail.getComments()}"></h4>
@@ -37,7 +37,8 @@
                         <h4 class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:text="'Updated Time:'+ ${issuesDetail.getUpdated_at()}"></h4>
                     </div>
                 </a>
-<!--                <a th:if="${repositoriesDetail.getTags_url() != null}" th:href="${repositoriesDetail.getTags_url()}" class="btn btn-primary btn-lg active" role="button">Download</a>-->
+                <a th:if="${isContribute=='false'}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" role="button">Add to Contribution</a>
+                <a th:if="${isContribute=='true'}" class="btn btn-primary btn-lg disabled"  role="button">Already Contribute</a>
             </div>
 
 
@@ -76,26 +77,17 @@
 
             <div class="well" th:if="${stackOverFlows!= null}">
                 <h3>Related Question</h3>
-                <div th:each="stackOverFlow:${stackOverFlows}">
+                <div th:each="stackOverFlow:${stackOverFlows}" id="stackOverFlowList">
                     <a th:href="${stackOverFlow.getLink()}" target="_blank" class="list-group-item">
 <!--                        <h4 class="list-group-item-heading" style="wight:100%;height:100%;word-wrap: break-word" th:text="${stackOverFlow.getTitle()}"></h4>-->
                         <p class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:text="${stackOverFlow.getTitle()}"></p>
                     </a>
                 </div>
-<!--                <ul class="pagination">-->
-<!--                    <li th:if="${hasPre != null}">-->
-<!--                        <a th:href="${hasPre}">&laquo;</a>-->
-<!--                    </li>-->
-<!--                    <li th:each="urls:${urlsPages}">-->
-<!--                        <a th:href="${urls.getUrls()}" th:if="${page ne urls.getPages()}"><span-->
-<!--                                th:text="${urls.getPages()}"></span></a>-->
-<!--                        <a th:href="${urls.getUrls()}" th:if="${page eq urls.getPages()}"-->
-<!--                           th:style="'color:#FFF;font-weight:bold;background:#337AB7;'"><span-->
-<!--                                th:text="${urls.getPages()}"></span></a>-->
-<!--                    </li>-->
-<!--                    <li th:if="${hasNext != null}">-->
-<!--                        <a th:href="${hasNext}">&raquo;</a>-->
-<!--                    </li>-->
+<!--                <input tpye="hidden" th:if="${previouspage>1}" th:attr="value=#{previouspage}" id="previouspage">-->
+<!--                <input tpye="hidden"  th:attr="value=#{nextpage}" id = "nextpage">-->
+<!--                <ul class="pager">-->
+<!--                    <li><a href="javascript:;" onclick="findPrevious()">Previous</a></li>-->
+<!--                    <li><a href="javascript:;" onclick="findNext()">Next</a></li>-->
 <!--                </ul>-->
 
             </div>
@@ -105,5 +97,148 @@
 
     </div>
 
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </a>
+                    <h4 class="modal-title" id="myModalLabel">
+                        score items
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-inline row">
+                            <label >keyword:</label>
+                            <label class="radio"><input type="radio" name="keyword" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="keyword" value="2">2</label>
+                            <label class="radio"><input type="radio" name="keyword" value="3">3</label>
+                            <label class="radio"><input type="radio" name="keyword" value="4">4</label>
+                            <label class="radio"><input type="radio" name="keyword" value="5">5</label>
+                        </div>
+
+                        <div class="form-inline row">
+                            <label >Programming Language:</label>
+                            <label class="radio"><input type="radio" name="programming" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="programming" value="2">2</label>
+                            <label class="radio"><input type="radio" name="programming" value="3">3</label>
+                            <label class="radio"><input type="radio" name="programming" value="4">4</label>
+                            <label class="radio"><input type="radio" name="programming" value="5">5</label>
+                        </div>
+
+
+                        <div class="form-inline row">
+                            <label >Sort:</label>
+                            <label class="radio"><input type="radio" name="sort" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="sort" value="2">2</label>
+                            <label class="radio"><input type="radio" name="sort" value="3">3</label>
+                            <label class="radio"><input type="radio" name="sort" value="4">4</label>
+                            <label class="radio"><input type="radio" name="sort" value="5">5</label>
+                        </div>
+
+                        <div class="form-inline row">
+                            <label >Order:</label>
+                            <label class="radio"><input type="radio" name="order" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="order" value="2">2</label>
+                            <label class="radio"><input type="radio" name="order" value="3">3</label>
+                            <label class="radio"><input type="radio" name="order" value="4">4</label>
+                            <label class="radio"><input type="radio" name="order" value="5">5</label>
+                        </div>
+
+                        <div class="form-inline row">
+                            <label >Github:</label>
+                            <label class="radio"><input type="radio" name="github" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="github" value="2">2</label>
+                            <label class="radio"><input type="radio" name="github" value="3">3</label>
+                            <label class="radio"><input type="radio" name="github" value="4">4</label>
+                            <label class="radio"><input type="radio" name="github" value="5">5</label>
+                        </div>
+
+
+                        <div class="form-inline row">
+                            <label >StackOverFlow:</label>
+                            <label class="radio"><input type="radio" name="stackoverflow" checked="checked" value="1">1</label>
+                            <label class="radio"><input type="radio" name="stackoverflow" value="2">2</label>
+                            <label class="radio"><input type="radio" name="stackoverflow" value="3">3</label>
+                            <label class="radio"><input type="radio" name="stackoverflow" value="4">4</label>
+                            <label class="radio"><input type="radio" name="stackoverflow" value="5">5</label>
+                        </div>
+
+                        <div class="form-inline row">
+                            <textarea  id="commits" placeholder="please input your commits"></textarea>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">cancel
+                    </button>
+                    <button type="button" id="addcontribute" class="btn btn-primary">
+                        submit
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#addcontribute").click(function(){
+                var issuetitle = $("#issuetitle").text();
+                var html_url = $("#issuehtml_url").attr('href');
+                var keyword = $("input[name='keyword']:checked").val();
+                var programming = $("input[name='programming']:checked").val();
+                var sort = $("input[name='sort']:checked").val();
+                var order = $("input[name='order']:checked").val();
+                var github = $("input[name='github']:checked").val();
+                var stackoverflow = $("input[name='stackoverflow']:checked").val();
+                var commits = $("#commits").val();
+                $.ajax({
+                    url:"/addcontributedetail",
+                    data:{
+                        issuetitle:issuetitle,
+                        html_url:html_url,
+                        keyword:keyword,
+                        programming:programming,
+                        sort:sort,
+                        order:order,
+                        github:github,
+                        stackoverflow:stackoverflow,
+                        commits:commits,
+                        type:"issue"
+                    },
+                    success:function(data){
+                        if(data == "success"){
+                            alert("report success")
+                            window.location.reload()
+                        }
+                        else{
+                            alert("please login,and have a try")
+                        }
+                    },
+                    fail:function(data){
+                        alert("error")
+                        window.location.href = "/404"
+                    }
+                })
+
+            })
+        })
+    </script>
+
+
+<!--    <script>-->
+<!--        function findPrevious(){-->
+<!--            var previouspage = document.getElementById("previouspage")-->
+<!--            var nextpage = document.getElementById("nextpage")-->
+<!--            $("#stackOverFlowList").empty()-->
+<!--            alert(previouspage)-->
+<!--        }-->
+<!--    </script>-->
 
 <footer th:replace="footer.html"></footer>

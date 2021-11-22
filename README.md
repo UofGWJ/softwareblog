@@ -28,3 +28,46 @@ https://api.github.com/search/repositories?q=Tetris+language:assembly+in:readme,
 first-contributions
 ### find topic example
 https://api.github.com/search/topics?q=ruby&per_page=100&page=2
+
+
+
+####
+CREATE TABLE Issue(
+   id INT UNSIGNED AUTO_INCREMENT,
+   userid  VARCHAR(100),
+   html_url VARCHAR(200),
+title    VARCHAR(200) ,
+lables VARCHAR(200) ,
+q VARCHAR(40) ,
+time DATE,
+   PRIMARY KEY (id)
+)
+
+CREATE TABLE Repository(
+   id INT UNSIGNED AUTO_INCREMENT,
+   userid  VARCHAR(100),
+   html_url VARCHAR(200),
+title    VARCHAR(200) ,
+language VARCHAR(200) ,
+q VARCHAR(40) ,
+time DATE,
+   PRIMARY KEY (id)
+)
+
+
+CREATE TABLE ContributeDetail(
+   id INT UNSIGNED AUTO_INCREMENT,
+   user VARCHAR(100),
+   issuetitle VARCHAR(200),
+html_url VARCHAR(200) ,
+keyword VARCHAR(100) ,
+programming VARCHAR(10) ,
+p_sort VARCHAR(10) ,
+p_order VARCHAR(10) ,
+github VARCHAR(10) ,
+stackoverflow VARCHAR(10) ,
+commits VARCHAR(200) ,
+type VARCHAR(200) ,
+time DATE,
+   PRIMARY KEY (id)
+)

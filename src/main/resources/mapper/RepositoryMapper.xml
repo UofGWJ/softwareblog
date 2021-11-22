@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swareblog.softwareblog.dao.RepositoryDao">
+    <resultMap id="RepositoryResult" type="com.swareblog.softwareblog.vo.Repository">
+        <result column="userid" jdbcType="VARCHAR" property="userid"/>
+        <result column="html_url" jdbcType="VARCHAR" property="html_url"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="language" jdbcType="VARCHAR" property="language"/>
+        <result column="q" jdbcType="VARCHAR" property="q"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <sql id="Repository">
+    userid, html_url, title,language ,q,time
+  </sql>
+    <insert id="insertRepository" parameterType="com.swareblog.softwareblog.vo.Repository">
+    insert into Repository (userid,html_url, title,language,q,time)
+    values (#{userid,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{q,jdbcType=VARCHAR},
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+
+    <select id="findRepositoryList" parameterType="Map" resultMap="RepositoryResult">
+        select
+        <include refid="Repository"/>
+        from Repository
+        where
+        userid = #{username}
+    </select>
+
+
+</mapper>

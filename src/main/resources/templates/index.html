@@ -3,8 +3,16 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1  th:if="${session.user != null}"  th:text="'Hello, '+ ${session.user.getLogin()}+'!'"></h1>
+        <h1  th:if="${session.user != null}"  th:text="'Hello, '+ ${session.user}+'!'"></h1>
         <p>You can get more queries when you log in！！！</p>
+        <h3>Here is the mean score of each function</h3>
+        <p th:text="'keyword: '+${keyword}"></p>
+        <p th:text="'programming: '+${programming}"></p>
+        <p th:text="'sort: '+${p_sort}"></p>
+        <p th:text="'order: '+${p_order}"></p>
+        <p th:text="'github: '+${github}"></p>
+        <p th:text="'stackoverflow: '+${stackoverflow}"></p>
+
 <!--        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>-->
     </div>
 </div>

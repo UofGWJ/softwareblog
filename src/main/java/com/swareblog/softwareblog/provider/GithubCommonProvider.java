@@ -181,4 +181,27 @@ public class GithubCommonProvider {
         return githubIssueDtos;
     }
 
+
+    // find User 在history中显示user的基本信息
+    public GithubOwner gitGithubOwner(String html_url,String accessToken){
+//        System.out.println(html_url);
+        OkHttpClient client = new OkHttpClient();
+        Request request = getRequest(html_url,accessToken);
+//        System.out.println(request);
+        try (Response response = client.newCall(request).execute()) {
+            String string = response.body().string();
+            if (string == null) {
+                return null;
+            }
+
+            GithubOwner githubOwner = JSON.parseObject(string, GithubOwner.class);
+
+            return githubOwner;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

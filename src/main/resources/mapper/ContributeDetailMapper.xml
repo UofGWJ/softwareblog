@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swareblog.softwareblog.dao.ContributeDetailDao">
+    <resultMap id="ContributeDetailResult" type="com.swareblog.softwareblog.vo.ContributeDetail">
+        <result column="user" jdbcType="VARCHAR" property="user"/>
+        <result column="issuetitle" jdbcType="VARCHAR" property="issuetitle"/>
+        <result column="html_url" jdbcType="VARCHAR" property="html_url"/>
+        <result column="keyword" jdbcType="VARCHAR" property="keyword"/>
+        <result column="programming" jdbcType="VARCHAR" property="programming"/>
+        <result column="p_sort" jdbcType="VARCHAR" property="p_sort"/>
+        <result column="p_order" jdbcType="VARCHAR" property="p_order"/>
+        <result column="github" jdbcType="VARCHAR" property="github"/>
+        <result column="stackoverflow" jdbcType="VARCHAR" property="stackoverflow"/>
+        <result column="commits" jdbcType="VARCHAR" property="commits"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <sql id="ContributeDetail">
+    user, issuetitle, html_url, keyword, programming, p_sort, p_order, github, stackoverflow, commits, type, time
+  </sql>
+    <insert id="insertContribute" parameterType="com.swareblog.softwareblog.vo.ContributeDetail">
+    insert into ContributeDetail (user, issuetitle, html_url, keyword, programming, p_sort, p_order, github, stackoverflow, commits, type, time)
+    values (#{user,jdbcType=VARCHAR}, #{issuetitle,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{programming,jdbcType=VARCHAR},
+    #{p_sort,jdbcType=VARCHAR}, #{p_order,jdbcType=VARCHAR}, #{github,jdbcType=VARCHAR}, #{stackoverflow,jdbcType=VARCHAR}, #{commits,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+
+    <select id="findContributeDetailList" parameterType="Map" resultMap="ContributeDetailResult">
+        select
+        <include refid="ContributeDetail"/>
+        from ContributeDetail
+        where
+        user = #{username}
+    </select>
+
+    <select id="findContributeDetailListAll" parameterType="Map" resultMap="ContributeDetailResult">
+        select
+        <include refid="ContributeDetail"/>
+        from ContributeDetail
+    </select>
+
+
+    <select id="getContribute" parameterType="Map" resultType="int">
+    select count(*)  from ContributeDetail
+    where user=#{username,jdbcType=VARCHAR} and issuetitle = #{issuetitle,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR}
+  </select>
+
+
+</mapper>

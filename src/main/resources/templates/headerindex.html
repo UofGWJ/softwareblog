@@ -33,7 +33,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">JSEB</span>
             </button>
             <a class="navbar-brand" href="/">JSEB</a>
@@ -42,16 +43,19 @@
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span class="caret" ></span></a>
+                       aria-expanded="false"><span th:text="${session.user}"></span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <!--                        <li><a href="#">Message Center</a></li>-->
-                        <!--                        <li><a href="#">Information</a></li>-->
+                        <li><a href="/issueshistory">Issues History</a></li>
+                        <li><a href="/repositoryhistory">Repository History</a></li>
+                        <li><a href="/mycontribute">Contribute History</a></li>
                         <li><a href="/layout">Layout</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown" th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=d32754e05783c716a028&redirect_uri=http://localhost:8080/callback&scope=user&state=1">Login</a>
+                    <!--                    <a href="https://github.com/login/oauth/authorize?client_id=d32754e05783c716a028&redirect_uri=http://18.130.87.161:8080/callback&scope=user&state=1">Login</a>-->
 
                 </li>
 

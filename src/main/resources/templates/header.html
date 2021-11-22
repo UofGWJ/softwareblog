@@ -53,17 +53,19 @@
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false"><span th:text="${session.user.getLogin()}"></span><span
+                       aria-expanded="false"><span th:text="${session.user}"></span><span
                             class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <!--                        <li><a href="#">Message Center</a></li>-->
-                        <!--                        <li><a href="#">Information</a></li>-->
+                        <li><a href="/issueshistory">Issues History</a></li>
+                        <li><a href="/repositoryhistory">Repository History</a></li>
+                        <li><a href="/mycontribute">Contribute History</a></li>
                         <li><a href="/layout">Layout</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown" th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=d32754e05783c716a028&redirect_uri=http://localhost:8080/callback&scope=user&state=1">Login</a>
+                    <!--                    <a href="https://github.com/login/oauth/authorize?client_id=d32754e05783c716a028&redirect_uri=http://18.130.87.161:8080/callback&scope=user&state=1">Login</a>-->
 
                 </li>
 
@@ -75,6 +77,7 @@
             <!--                <button type="submit" class="btn btn-success">Search</button>-->
             <!--            </form>-->
         </div>
-        <p class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:html="${session.user}"></p>
+        <p class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word"
+           th:html="${session.user}"></p>
     </div>
 </nav>

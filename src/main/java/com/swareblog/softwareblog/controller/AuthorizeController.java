@@ -46,7 +46,8 @@ public class AuthorizeController {
 //        model.addAttribute("username",getuser.getLogin());
         if(getuser != null){
             // login success
-            request.getSession().setAttribute("user", getuser);
+            request.getSession().setAttribute("user", getuser.getLogin());
+            request.getSession().setAttribute("user_url", getuser.getUrl());
             request.getSession().setAttribute("accessToken", accessToken);
             return "redirect:/";
         } else{

@@ -5,6 +5,7 @@ public class GithubUser {
     private Long id;
     private String avatar_url;
     private String html_url;
+    private String url;
     private String followers_url;
 
     @Override
@@ -14,8 +15,17 @@ public class GithubUser {
                 ", id=" + id +
                 ", avatar_url='" + avatar_url + '\'' +
                 ", html_url='" + html_url + '\'' +
+                ", url='" + url + '\'' +
                 ", followers_url='" + followers_url + '\'' +
                 '}';
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getLogin() {

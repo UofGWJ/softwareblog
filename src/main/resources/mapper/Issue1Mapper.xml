@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.swareblog.softwareblog.dao.IssueDao">
+    <resultMap id="IssueResult" type="com.swareblog.softwareblog.vo.Issue">
+        <result column="userid" jdbcType="VARCHAR" property="userid"/>
+        <result column="html_url" jdbcType="VARCHAR" property="html_url"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="lables" jdbcType="VARCHAR" property="lables"/>
+        <result column="q" jdbcType="VARCHAR" property="q"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+    <sql id="Issue">
+    userid, html_url, title,lables ,q,time
+  </sql>
+    <insert id="insertIssue" parameterType="com.swareblog.softwareblog.vo.Issue">
+    insert into Issue (userid,html_url, title,lables,q,time)
+    values (#{userid,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{lables,jdbcType=VARCHAR}, #{q,jdbcType=VARCHAR},
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+
+    <select id="findIssueList" parameterType="Map" resultMap="IssueResult">
+        select
+        <include refid="Issue"/>
+        from Issue
+        where
+        userid = #{username}
+    </select>
+
+
+</mapper>
