@@ -4,7 +4,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1  th:if="${session.user != null}"  th:text="'Hello, '+ ${session.user}+'!'"></h1>
-        <p>You can get more queries when you log in！！！</p>
+        <p>You can get more queries when you log in！！！ <a href="/learnmore">learn more</a></p>
         <h3>Here is the mean score of each function</h3>
         <p th:text="'keyword: '+${keyword}"></p>
         <p th:text="'programming: '+${programming}"></p>
@@ -21,17 +21,17 @@
     <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-4">
-            <h2>Find a new Issues</h2>
+            <h2>Find Issues</h2>
             <p>The best way to learn a language and a technology is not to start from zero, but to find issues that interest you and gradually imitate learning. Here we have collected a lot of issues that are suitable for programmers who are just getting started. Come and find your own appropriate issue. </p>
             <p><a class="btn btn-default" href="/myissues?q=&language=&sort=&page=&order=" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-            <h2>Find a new Responsity</h2>
+            <h2>Find Repositories</h2>
             <p> Here is a collection of responses in the industry that are suitable for just beginning to learn programming, and there are all kinds of responses you want. Come and search for the Response you are interested in</p>
             <p><a class="btn btn-default" href="/myreponsitories?q=&language=&sort=&page=&order=" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-            <h2>Find a new Topics</h2>
+            <h2>Find Topics</h2>
             <p>When you start to learn programming, you must first find a topic that interests you. There are like-minded friends in this, and you can share your experience and learning journey with each other. Come find a topic you like</p>
             <p><a class="btn btn-default" href="/mytopics?q=&page=" role="button">View details &raquo;</a></p>
         </div>

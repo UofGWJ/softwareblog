@@ -65,26 +65,28 @@ public class AddContributeDetail {
     @GetMapping("/mycontribute")
     public String userIssueHistory(HttpServletRequest request,
                                    Model model){
-
-        Object obj = request.getSession().getAttribute("user_url");
-        if(obj!=null){
-            Object obja = request.getSession().getAttribute("accessToken");
-            GithubOwner githubOwner = githubCommonProvider.gitGithubOwner(obj.toString(),obja.toString());
-            // if not login and the times is out to 404
-            if (githubOwner == null) {
-                return "404";
+        try {
+            Object obj = request.getSession().getAttribute("user_url");
+            if (obj != null) {
+                Object obja = request.getSession().getAttribute("accessToken");
+                GithubOwner githubOwner = githubCommonProvider.gitGithubOwner(obj.toString(), obja.toString());
+                // if not login and the times is out to 404
+                if (githubOwner == null) {
+                    return "404";
+                }
+                model.addAttribute("owner", githubOwner);
+                Object obju = request.getSession().getAttribute("user");
+                String username = obju.toString();
+                List<ContributeDetail> contributeDetails = contributeDetailService.findContributeDetailList(username);
+                model.addAttribute("ContributeHistories", contributeDetails);
+                return "mycontribute";
+            } else {
+                return "redirect:/";
             }
-            model.addAttribute("owner", githubOwner);
-            Object obju = request.getSession().getAttribute("user");
-            String username = obju.toString();
-            List<ContributeDetail> contributeDetails = contributeDetailService.findContributeDetailList(username );
-            model.addAttribute("ContributeHistories", contributeDetails);
-            return "mycontribute";
         }
-        else{
+        catch(Exception ex){
             return "redirect:/";
         }
-
     }
 
 }

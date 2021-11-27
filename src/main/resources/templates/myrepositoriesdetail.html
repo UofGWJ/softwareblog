@@ -55,7 +55,7 @@
 
             <div class="well">
                 <div th:each="reponsitory:${reponsitories}">
-                    <a th:href="${'/repositoriesdetail?url='+reponsitory.getUrl()+'&page=1'}" target="_blank" class="list-group-item">
+                    <a th:href="${'/repositoriesdetail?url='+reponsitory.getUrl()+'&page=1'+'&q='+q}" target="_blank" class="list-group-item">
                         <h4 class="list-group-item-heading" style="wight:100%;height:100%;word-wrap: break-word" th:text="${reponsitory.getName()}"></h4>
                         <p class="list-group-item-text" style="wight:100%;height:100%;word-wrap: break-word" th:utext="${reponsitory.getDescription()}"></p>
                     </a>

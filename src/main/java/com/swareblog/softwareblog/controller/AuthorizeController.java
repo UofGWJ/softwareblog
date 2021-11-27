@@ -52,7 +52,7 @@ public class AuthorizeController {
             return "redirect:/";
         } else{
             // login fail
-            return "redirect:/";
+            return "404";
         }
     }
 }

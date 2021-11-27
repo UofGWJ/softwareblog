@@ -1,6 +1,7 @@
 package com.swareblog.softwareblog.dto.repositories;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.rjeschke.txtmark.Processor;
 
 import java.util.Date;
 
@@ -52,7 +53,7 @@ public class RepositoriesDetailDto {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = Processor.process(description);
     }
 
     public String getTags_url() {

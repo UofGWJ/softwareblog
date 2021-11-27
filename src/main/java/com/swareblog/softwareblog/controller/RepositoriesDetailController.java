@@ -101,22 +101,22 @@ public class RepositoriesDetailController {
         // 7. 根据url 查询推荐的repositories
         ArrayList<GithubRepositoriesDto> reponsitories = repositoriesDetailProvider.findReponsitories(url1,accessToken);
         model.addAttribute("reponsitories", reponsitories);
-
+        model.addAttribute("q",q);
         int totalPage = PageRepositoriesDetail.getPage();
         model.addAttribute("page", ""+page);
         String hasPre = null;
         if (page > 1) {
-            hasPre = "/repositoriesdetail?url="+url+"&page="+(page-1);
+            hasPre = "/repositoriesdetail?url="+url+"&page="+(page-1)+"&q="+q;
         }
         String hasNext = null;
         if (page < totalPage) {
-            hasNext = "/repositoriesdetail?url="+url+"&page="+(page+1);
+            hasNext = "/repositoriesdetail?url="+url+"&page="+(page+1)+"&q="+q;
         }
         model.addAttribute("hasPre",hasPre);
         model.addAttribute("hasNext",hasNext);
 
         // 8. 根据url 查询推荐的repositories  获得ArrayList<UrlsPages>  页面链接 和 页数
-        ArrayList<UrlsPages> returnUrlsPages = repositoriesDetailProvider.getUrlListDetail("repositoriesdetail",url,  page, totalPage);
+        ArrayList<UrlsPages> returnUrlsPages = repositoriesDetailProvider.getUrlListDetail("repositoriesdetail",url,  page, totalPage,q);
         model.addAttribute("urlsPages",returnUrlsPages);
         //    9.如果登陆了 写入数据库
         Repository repository = new Repository();

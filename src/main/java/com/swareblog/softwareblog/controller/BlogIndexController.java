@@ -19,6 +19,7 @@ public class BlogIndexController {
 
     @GetMapping("/")
     public String index(Model model) {
+        try{
         List<ContributeDetail> contributeDetails = contributeDetailService.findContributeDetailListAll();
         int keyword_sum = 0;
         int programming_sum = 0;
@@ -48,6 +49,11 @@ public class BlogIndexController {
         model.addAttribute("p_order",p_order_mean);
         model.addAttribute("github",github_mean);
         model.addAttribute("stackoverflow",stackoverflow_mean);
-        return "index";
+            return "index";
+        }
+        catch(Exception ex){
+            return "404";
+        }
+
     }
 }

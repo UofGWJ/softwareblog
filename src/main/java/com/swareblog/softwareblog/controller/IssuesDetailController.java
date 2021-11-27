@@ -119,11 +119,11 @@ public class IssuesDetailController {
         model.addAttribute("page", "" + page);
         String hasPre = null;
         if (page > 1) {
-            hasPre = "/issuesdetail?url=" + url + "&page=" + (page - 1);
+            hasPre = "/issuesdetail?url=" + url + "&page=" + (page - 1)+"&labels="+labels+"&q="+q;
         }
         String hasNext = null;
         if (page < totalPage) {
-            hasNext = "/issuesdetail?url=" + url + "&page=" + (page + 1);
+            hasNext = "/issuesdetail?url=" + url + "&page=" + (page + 1)+"&labels="+labels+"&q="+q;
         }
         model.addAttribute("hasPre", hasPre);
         model.addAttribute("hasNext", hasNext);

@@ -2,6 +2,7 @@ package com.swareblog.softwareblog.dto.issues;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.github.rjeschke.txtmark.Processor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class GithubIssueDto {
     }
 
     public void setBody(String body) {
-        this.body = body;
+        this.body = Processor.process(body);
     }
 
     public String getUrl() {

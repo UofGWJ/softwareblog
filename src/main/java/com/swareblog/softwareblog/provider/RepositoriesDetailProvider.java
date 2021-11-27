@@ -120,32 +120,32 @@ public class RepositoriesDetailProvider {
 
 
     // 这个是repositoriesDetailProvider
-    public ArrayList<UrlsPages> getUrlListDetail(String curl, String url, int page, int totalPage) {
+    public ArrayList<UrlsPages> getUrlListDetail(String curl, String url, int page, int totalPage,String q) {
         ArrayList<UrlsPages> urlPages = new ArrayList<>();
         if (totalPage > 10) {  // 如果大于10页的时候 做复杂的分页处理
             if(page<5){
                 for(int i =1;i<11;i++){
 //                   System.out.println(i);
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
+                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i+"&q="+q,""+i);
                     urlPages.add(u);
                 }
             }
             else if(totalPage-page<=6){
                 for(int i=totalPage-10;i<=totalPage;i++){
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
+                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i+"&q="+q,""+i);
                     urlPages.add(u);
                 }
             }
             else{
                 for(int i=page-4;i<=page+6;i++){
-                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
+                    UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i+"&q="+q,""+i);
                     urlPages.add(u);
                 }
             }
         }
         else{
             for(int i = 1;i<totalPage+1;i++){
-                UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i,""+i);
+                UrlsPages u = new UrlsPages("/"+curl+"?url="+url+"&page="+i+"&q="+q,""+i);
                 urlPages.add(u);
             }
         }
