@@ -47,8 +47,8 @@
                     </div>
                 </a>
                 <a th:if="${repositoriesDetail.getTags_url() != null}" th:href="${repositoriesDetail.getTags_url()}" class="btn btn-primary btn-lg" role="button">Download</a>
-                <a th:if="${isContribute=='false'}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" role="button">Add to Contribution</a>
-                <a th:if="${isContribute=='true'}" class="btn btn-primary btn-lg disabled"  role="button">Already Contribute</a>
+                <a th:if="${isContribute=='false'}" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" role="button">Add to Favorite List</a>
+                <a th:if="${isContribute=='true'}" class="btn btn-primary btn-lg disabled"  role="button">Already Favorite</a>
 
             </div>
 

@@ -72,7 +72,7 @@ public class FindIssuesController {
         //  访问url 查询Issues
         ArrayList<GithubIssueDto> issues = githubIssues.findIssues(url,accessToken);
         // if not login and the times is out to 404
-        if (issues == null) {
+        if (issues == null || issues.size() ==0) {
             return "404";
         }
 

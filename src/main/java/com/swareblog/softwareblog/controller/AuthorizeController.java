@@ -48,6 +48,7 @@ public class AuthorizeController {
             // login success
             request.getSession().setAttribute("user", getuser.getLogin());
             request.getSession().setAttribute("user_url", getuser.getUrl());
+//            System.out.println(getuser.toString());
             request.getSession().setAttribute("accessToken", accessToken);
             return "redirect:/";
         } else{

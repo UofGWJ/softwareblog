@@ -32,7 +32,6 @@ public class GithubIssuesProvider {
     * */
     public ArrayList<GithubIssueDto> findIssues(String url,String accessToken) {
         OkHttpClient client = new OkHttpClient();
-
         // 1. 利用公共Provider对象获得 访问链接对象 return request
         Request request = githubCommonProvider.getRequest(url,accessToken);
         // 2. 利用request对象 访问得到response对象

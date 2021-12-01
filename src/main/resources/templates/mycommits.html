@@ -1,0 +1,67 @@
+<header th:replace="header.html"></header>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-3">
+
+            <a  th:href="${owner.getHtml_url()}" class="list-group-item">
+                <div class="dropdown theme-dropdown clearfix">
+                    <img  th:src="${owner.getAvatar_url()}" width="200" height="200" class="img-circle"  th:alt="${owner.getLogin()}">
+                    <!--          <img src="https://avatars.githubusercontent.com/u/41664770?v=4" alt="..." class="img-circle">-->
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'name:'+owner.getLogin()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word"  th:text="${'company:'+owner.getCompany()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'blog:'+owner.getBlog()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'bio:'+owner.getBio()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'location:'+owner.getLocation()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'email:'+owner.getEmail()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'twitter_username:'+owner.getTwitter_username()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'followers:'+owner.getFollowers()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'following:'+owner.getFollowing()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word" th:text="${'created_at:'+owner.getCreated_at()}"></h4>
+                    <h4 style="wight:100%;height:100%;word-wrap: break-word"  th:text="${'updated_at:'+owner.getUpdated_at()}"></h4>
+                </div>
+            </a>
+
+
+        </div>
+        <div class="col-md-9">
+            <!--            <div class="well">-->
+            <div class="layout_m_table" style="over-break: auto;">
+                <table class="table1" id="mytable" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th style="width: 40%">title</th>
+                        <th style="width: 5%">body</th>
+                        <th style="width: 5%">time</th>
+                        <th style="width: 5%">Github</th>
+                        <th style="width: 5%">Detail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="userCommitHistry:${UserCommitHistories}" >
+                        <td th:text="${userCommitHistry.getTitle()}"> </td>
+                        <td th:text="${userCommitHistry.getBody()}"> </td>
+                        <td th:text="${userCommitHistry.getCreated_at()}"> </td>
+                        <td>
+                            <a  th:href="${userCommitHistry.getHtml_url()}"  target="_blank" class="btn btn-default" role="button" >Github</a>
+                        </td>
+                        <td> <a  th:href="${'/issuesdetail?url='+userCommitHistry.getUrl()+'&page=1'+'&labels='+userCommitHistry.getLabels()+'&q='+userCommitHistry.getTitle()}"  target="_blank" class="btn btn-default" role="button" >Detail</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--            </div>-->
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.table1').DataTable();
+        })
+    </script>
+
+    <footer th:replace="footer.html"></footer>
+

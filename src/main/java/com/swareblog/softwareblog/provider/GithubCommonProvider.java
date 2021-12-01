@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.swareblog.softwareblog.dto.GithubOwner;
 import com.swareblog.softwareblog.dto.issues.GithubIssueDto;
 import com.swareblog.softwareblog.dto.issues.UrlsPages;
+import com.swareblog.softwareblog.dto.issues.UserCommitHistoryDto;
 import com.swareblog.softwareblog.dto.repositories.GithubRepositoriesDto;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -203,5 +204,17 @@ public class GithubCommonProvider {
         }
         return null;
     }
+
+    // 解析JSONArray 返回ArrayList<UserCommitDto>
+    public ArrayList<UserCommitHistoryDto> getUserCommitHistoryDto(JSONArray jsonArray) {
+        ArrayList<UserCommitHistoryDto> userCommitHistoryDtos = new ArrayList<>();
+        for (int i=0; i<jsonArray.size(); i++) {
+            UserCommitHistoryDto userCommitHistoryDto = JSON.parseObject(jsonArray.get(i).toString(), UserCommitHistoryDto.class);
+            System.out.println(userCommitHistoryDto);
+            userCommitHistoryDtos.add(userCommitHistoryDto);
+        }
+        return userCommitHistoryDtos;
+    }
+
 
 }

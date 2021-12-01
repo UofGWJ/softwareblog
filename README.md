@@ -29,7 +29,8 @@ first-contributions
 ### find topic example
 https://api.github.com/search/topics?q=ruby&per_page=100&page=2
 
-
+#### find contribute issues
+https://api.github.com/search/issues?q=is:issue+author:twsswt
 
 ####
 CREATE TABLE Issue(
