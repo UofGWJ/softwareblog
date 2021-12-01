@@ -33,30 +33,30 @@ https://api.github.com/search/topics?q=ruby&per_page=100&page=2
 https://api.github.com/search/issues?q=is:issue+author:twsswt
 
 ####
-CREATE TABLE Issue(
+CREATE TABLE IssueHistory(
    id INT UNSIGNED AUTO_INCREMENT,
    userid  VARCHAR(100),
    html_url VARCHAR(200),
 title    VARCHAR(200) ,
 lables VARCHAR(200) ,
 q VARCHAR(40) ,
-time DATE,
+time TIMESTAMP,
    PRIMARY KEY (id)
 )
 
-CREATE TABLE Repository(
+CREATE TABLE RepositoryHistory(
    id INT UNSIGNED AUTO_INCREMENT,
    userid  VARCHAR(100),
    html_url VARCHAR(200),
 title    VARCHAR(200) ,
 language VARCHAR(200) ,
 q VARCHAR(40) ,
-time DATE,
+time TIMESTAMP,
    PRIMARY KEY (id)
 )
 
 
-CREATE TABLE ContributeDetail(
+CREATE TABLE FavoriteList(
    id INT UNSIGNED AUTO_INCREMENT,
    user VARCHAR(100),
    issuetitle VARCHAR(200),
@@ -69,6 +69,6 @@ github VARCHAR(10) ,
 stackoverflow VARCHAR(10) ,
 commits VARCHAR(200) ,
 type VARCHAR(200) ,
-time DATE,
+time TIMESTAMP,
    PRIMARY KEY (id)
 )

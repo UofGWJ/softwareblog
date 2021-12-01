@@ -52,7 +52,13 @@ public class BlogIndexController {
             return "index";
         }
         catch(Exception ex){
-            return "404";
+            model.addAttribute("keyword",0);
+            model.addAttribute("programming",0);
+            model.addAttribute("p_sort",0);
+            model.addAttribute("p_order",0);
+            model.addAttribute("github",0);
+            model.addAttribute("stackoverflow",0);
+            return "index";
         }
 
     }

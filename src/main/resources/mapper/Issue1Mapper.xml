@@ -11,19 +11,19 @@
         <result column="q" jdbcType="VARCHAR" property="q"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
     </resultMap>
-    <sql id="Issue">
+    <sql id="IssueHistory">
     userid, html_url, title,lables ,q,time
   </sql>
     <insert id="insertIssue" parameterType="com.swareblog.softwareblog.vo.Issue">
-    insert into Issue (userid,html_url, title,lables,q,time)
+    insert into IssueHistory (userid,html_url, title,lables,q,time)
     values (#{userid,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{lables,jdbcType=VARCHAR}, #{q,jdbcType=VARCHAR},
       #{time,jdbcType=TIMESTAMP})
   </insert>
 
     <select id="findIssueList" parameterType="Map" resultMap="IssueResult">
         select
-        <include refid="Issue"/>
-        from Issue
+        <include refid="IssueHistory"/>
+        from IssueHistory
         where
         userid = #{username}
     </select>

@@ -17,11 +17,11 @@
         <result column="type" jdbcType="VARCHAR" property="type"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
     </resultMap>
-    <sql id="ContributeDetail">
+    <sql id="FavoriteList">
     user, issuetitle, html_url, keyword, programming, p_sort, p_order, github, stackoverflow, commits, type, time
   </sql>
     <insert id="insertContribute" parameterType="com.swareblog.softwareblog.vo.ContributeDetail">
-    insert into ContributeDetail (user, issuetitle, html_url, keyword, programming, p_sort, p_order, github, stackoverflow, commits, type, time)
+    insert into FavoriteList (user, issuetitle, html_url, keyword, programming, p_sort, p_order, github, stackoverflow, commits, type, time)
     values (#{user,jdbcType=VARCHAR}, #{issuetitle,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{programming,jdbcType=VARCHAR},
     #{p_sort,jdbcType=VARCHAR}, #{p_order,jdbcType=VARCHAR}, #{github,jdbcType=VARCHAR}, #{stackoverflow,jdbcType=VARCHAR}, #{commits,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
       #{time,jdbcType=TIMESTAMP})
@@ -29,21 +29,21 @@
 
     <select id="findContributeDetailList" parameterType="Map" resultMap="ContributeDetailResult">
         select
-        <include refid="ContributeDetail"/>
-        from ContributeDetail
+        <include refid="FavoriteList"/>
+        from FavoriteList
         where
         user = #{username}
     </select>
 
     <select id="findContributeDetailListAll" parameterType="Map" resultMap="ContributeDetailResult">
         select
-        <include refid="ContributeDetail"/>
-        from ContributeDetail
+        <include refid="FavoriteList"/>
+        from FavoriteList
     </select>
 
 
     <select id="getContribute" parameterType="Map" resultType="int">
-    select count(*)  from ContributeDetail
+    select count(*)  from FavoriteList
     where user=#{username,jdbcType=VARCHAR} and issuetitle = #{issuetitle,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR}
   </select>
 

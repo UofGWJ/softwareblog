@@ -11,19 +11,19 @@
         <result column="q" jdbcType="VARCHAR" property="q"/>
         <result column="time" jdbcType="TIMESTAMP" property="time"/>
     </resultMap>
-    <sql id="Repository">
+    <sql id="RepositoryHistory">
     userid, html_url, title,language ,q,time
   </sql>
     <insert id="insertRepository" parameterType="com.swareblog.softwareblog.vo.Repository">
-    insert into Repository (userid,html_url, title,language,q,time)
+    insert into RepositoryHistory (userid,html_url, title,language,q,time)
     values (#{userid,jdbcType=VARCHAR}, #{html_url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{q,jdbcType=VARCHAR},
       #{time,jdbcType=TIMESTAMP})
   </insert>
 
     <select id="findRepositoryList" parameterType="Map" resultMap="RepositoryResult">
         select
-        <include refid="Repository"/>
-        from Repository
+        <include refid="RepositoryHistory"/>
+        from RepositoryHistory
         where
         userid = #{username}
     </select>
