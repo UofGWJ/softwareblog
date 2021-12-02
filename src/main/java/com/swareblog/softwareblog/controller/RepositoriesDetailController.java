@@ -120,9 +120,11 @@ public class RepositoriesDetailController {
         model.addAttribute("urlsPages",returnUrlsPages);
         //    9.如果登陆了 写入数据库
         Repository repository = new Repository();
+        String isContribute = "noLogin";
         String username = null;
         Object obju = request.getSession().getAttribute("user");
         if (obju != null) {
+            isContribute = "false";
             username = obju.toString();
             repository.setUserid(username);
             repository.setHtml_url(url);
@@ -135,8 +137,8 @@ public class RepositoriesDetailController {
             repositoryService.insertRepository(repository);
         }
         //    10. 判断是否已经将该issue加入到 contribute里
-        String isContribute = "false";
-        if(contributeDetailService.getContribute(username,repositoriesDetailDto.getFull_name(),"repository")>0){
+
+        if(isContribute=="false"&contributeDetailService.getContribute(username,repositoriesDetailDto.getFull_name(),"repository")>0){
             isContribute="true";
         }
         model.addAttribute("isContribute", isContribute);

@@ -53,7 +53,7 @@ public class AddContributeDetail {
             Date time = df.parse(df.format(new Date())); // new Date()为获取当前系统时间
             ContributeDetail contributeDetail = new ContributeDetail(user, issuetitle, html_url, keyword, programming, sort, order, github, stackoverflow, commits, type, time);
             contributeDetailService.insertContribute(contributeDetail);
-            System.out.println(contributeDetail);
+//            System.out.println(contributeDetail);
             return "success";
         } else {
             return "fail";

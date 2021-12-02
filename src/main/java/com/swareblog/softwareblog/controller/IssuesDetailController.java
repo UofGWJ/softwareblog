@@ -154,10 +154,12 @@ public class IssuesDetailController {
 
 
         // 10. 如果登陆了 写入数据库
+        String isContribute = "notLogin";
         Issue issue = new Issue();
         String username = null;
         Object obju = request.getSession().getAttribute("user");
         if (obju != null) {
+            isContribute = "false";
             username = obju.toString();
             issue.setUserid(username);
             issue.setHtml_url(url);
@@ -171,11 +173,12 @@ public class IssuesDetailController {
         }
 
         // 11. 判断是否已经将该issue加入到 contribute里
-        String isContribute = "false";
-        if(contributeDetailService.getContribute(username,githubIssueDto.getTitle(),"issue")>0){
+
+        if(isContribute=="false"&contributeDetailService.getContribute(username,githubIssueDto.getTitle(),"issue")>0){
             isContribute="true";
         }
         model.addAttribute("isContribute", isContribute);
+
         return "myissuesdetail";
     }
 
