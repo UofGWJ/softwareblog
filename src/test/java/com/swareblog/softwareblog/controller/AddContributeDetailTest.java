@@ -99,7 +99,7 @@ public class AddContributeDetailTest {
     public void addContributeDetail() throws Exception {
         MvcResult mvcResult = mockMvc
                 .perform(// 1
-                        MockMvcRequestBuilders.get("/") // 2
+                        MockMvcRequestBuilders.get("/addcontributedetail") // 2
                         .param("issuetitle","Report files should include connection information")        // 3
                         .param("html_url","https://github.com/nipy/nipype/issues/380")        // 3
                         .param("keyword","")        // 3
@@ -110,14 +110,14 @@ public class AddContributeDetailTest {
                         .param("stackoverflow","1")        // 3
                         .param("commits","getList")        // 3
                         .param("type","issue")        // 3
+                                .sessionAttr("user","UofGWJ")
+                                .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                                .sessionAttr("accessToken","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")
                 )
                 .andReturn();// 4
 
         int status = mvcResult.getResponse().getStatus(); // 5
-        String responseString = mvcResult.getResponse().getContentAsString(); // 6
-
         Assert.assertEquals("False", 200, status); // 7
-//        Assert.assertEquals("返回结果不一致", "/index", responseString); // 8
     }
 
     @Test
@@ -125,6 +125,9 @@ public class AddContributeDetailTest {
         MvcResult mvcResult = mockMvc
                 .perform(// 1
                         MockMvcRequestBuilders.get("/mycontribute") // 2
+                                .sessionAttr("user","UofGWJ")
+                                .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                                .sessionAttr("accessToken","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")
                         //.param("name","getList")        // 3
                 )
                 .andReturn();// 4
@@ -132,7 +135,7 @@ public class AddContributeDetailTest {
         int status = mvcResult.getResponse().getStatus(); // 5
         String responseString = mvcResult.getResponse().getContentAsString(); // 6
 
-        Assert.assertEquals("False", 302, status); // 7
+        Assert.assertEquals("False", 200, status); // 7
 //        Assert.assertEquals("返回结果不一致", "/index", responseString); // 8
 
     }

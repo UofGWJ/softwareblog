@@ -40,6 +40,7 @@ public class FindRepositoriesControllerTest {
     }
     @Test
     public void index1() throws Exception {
+
         MvcResult mvcResult = mockMvc
                 .perform(// 1
                         MockMvcRequestBuilders.get("/myreponsitories") // 2
@@ -48,6 +49,9 @@ public class FindRepositoriesControllerTest {
                                 .param("sort","comments")        // 3
                                 .param("page","1")        // 3
                                 .param("order","desc")        // 3
+                        .sessionAttr("user","UofGWJ")
+                        .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                        .sessionAttr("accessToken","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")
                 )
                 .andReturn();// 4
 

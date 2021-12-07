@@ -48,23 +48,6 @@ public class IssuesDetailProvider {
             return null;
         } else {
             GithubIssueDto githubIssueDto = JSON.parseObject(jsonobj.toString(), GithubIssueDto.class);
-//            String url = repositoriesDetailDto.getTags_url();
-//            OkHttpClient client = new OkHttpClient();
-//            Request request = githubCommonProvider.getRequest(url,accessToken);
-//            try (Response response = client.newCall(request).execute()) {
-//                String string = response.body().string();
-//                System.out.println(string);
-//                if (!"[]".equals(string)) {
-//                    JSONObject object = (JSONObject)JSONObject.parseArray(string).get(0);
-//                    repositoriesDetailDto.setTags_url(object.getString("zipball_url"));
-//                }else{
-//                    repositoriesDetailDto.setTags_url(null);
-//                }
-//
-//            } catch (IOException e) {
-//                repositoriesDetailDto.setTags_url(null);
-//                e.printStackTrace();
-//            }
             return githubIssueDto;
         }
     }

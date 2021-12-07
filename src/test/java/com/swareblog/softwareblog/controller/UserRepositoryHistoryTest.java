@@ -42,13 +42,16 @@ public class UserRepositoryHistoryTest {
         MvcResult mvcResult = mockMvc
                 .perform(// 1
                         MockMvcRequestBuilders.get("/repositoryhistory") // 2
+                                .sessionAttr("user","UofGWJ")
+                                .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                                .sessionAttr("accessToken","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")
                 )
                 .andReturn();// 4
 
         int status = mvcResult.getResponse().getStatus(); // 5
         String responseString = mvcResult.getResponse().getContentAsString(); // 6
 
-        Assert.assertEquals("False", 302, status); // 7
+        Assert.assertEquals("False", 200, status); // 7
 //        Assert.assertEquals("返回结果不一致", "/index", responseString); // 8
     }
 }

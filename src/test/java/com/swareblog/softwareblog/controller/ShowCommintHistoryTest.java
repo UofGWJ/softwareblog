@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BlogIndexControllerTest {
+public class ShowCommintHistoryTest {
 
     /**
      * 模拟mvc测试对象
@@ -37,19 +37,21 @@ public class BlogIndexControllerTest {
     public void before() {
         //获取mockmvc对象实例
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
     }
     @Test
-    public void index() throws Exception {
+    public void userIssueHistory() throws Exception {
         MvcResult mvcResult = mockMvc
                 .perform(// 1
-                        MockMvcRequestBuilders.get("/") // 2
-                        //.param("name","getList")        // 3
+                        MockMvcRequestBuilders.get("/showcommithistory") // 2
+                                .sessionAttr("user","UofGWJ")
+                                .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                                .sessionAttr("accessToken","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")
                 )
                 .andReturn();// 4
 
         int status = mvcResult.getResponse().getStatus(); // 5
-        Assert.assertEquals("False", 200, status); // 7
+        String responseString = mvcResult.getResponse().getContentAsString(); // 6
 
+        Assert.assertEquals("False", 200, status); // 7
     }
 }

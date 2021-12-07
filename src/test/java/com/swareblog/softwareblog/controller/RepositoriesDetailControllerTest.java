@@ -55,4 +55,27 @@ public class RepositoriesDetailControllerTest {
         Assert.assertEquals("False", 200, status); // 7
 //        Assert.assertEquals("返回结果不一致", "/index", responseString); // 8
     }
+
+    @Test
+    public void myrepositoriesdetail1() throws Exception {
+        MvcResult mvcResult = mockMvc
+                .perform(// 1
+                        MockMvcRequestBuilders.get("/repositoriesdetail") // 2
+                                .param("url","https://api.github.com/repos/daniel-e/tetros")        // 3
+                                .param("page","1")        // 3
+                                .param("q","comments")        // 3
+                                .sessionAttr("user","UofGWJ")
+                                .sessionAttr("user_url","https://api.github.com/users/UofGWJ")
+                                .sessionAttr("accessToken","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")
+
+                )
+                .andReturn();// 4
+
+        int status = mvcResult.getResponse().getStatus(); // 5
+        String responseString = mvcResult.getResponse().getContentAsString(); // 6
+
+        Assert.assertEquals("False", 200, status); // 7
+//        Assert.assertEquals("返回结果不一致", "/index", responseString); // 8
+    }
+
 }
