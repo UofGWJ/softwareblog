@@ -28,15 +28,23 @@ public class BlogIndexController {
         int github_sum = 0;
         int stackoverflow_sum = 0;
         int count = contributeDetails.size();
+        int countK = 0;
         for(ContributeDetail c : contributeDetails){
-            keyword_sum += Integer.parseInt(c.getKeyword());
+            if("".equals(c.getKeyword())){
+                keyword_sum += 0;
+            }
+            else{
+                keyword_sum += Integer.parseInt(c.getKeyword());
+                countK++;
+            }
+
             programming_sum += Integer.parseInt(c.getProgramming());
             p_sort_sum += Integer.parseInt(c.getP_sort());
             p_order_sum += Integer.parseInt(c.getP_order());
             github_sum += Integer.parseInt(c.getGithub());
             stackoverflow_sum += Integer.parseInt(c.getStackoverflow());
         }
-        double keyword_mean = new BigDecimal((float)keyword_sum/count).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double keyword_mean = new BigDecimal((float)keyword_sum/countK).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double programming_mean = new BigDecimal((float)programming_sum/count).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double p_sort_mean =  new BigDecimal((float)p_sort_sum/count).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double p_order_mean =  new BigDecimal((float)p_order_sum/count).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
